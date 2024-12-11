@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 
-type Message = {
+export type Message = {
   role: "user" | "ai";
   content: string;
 };
@@ -29,21 +29,29 @@ export default function Home() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ message }),
+        body: JSON.stringify({
+          message,
+        }),
       });
 
+      if (!response.ok) throw new Error("Failed to fetch response");
+
       // TODO: Handle the response from the chat API to display the AI response in the UI
-
-
-
-
+      //const chatResponse: Message = await response.json();
+      const data = await response.json();
+      const aiResponse: Message = {
+        role: "ai",
+        content: data.response,
+      };
+      // Add AI response to the conversation
+      setMessages(prev => [...prev, aiResponse]);
+      setMessage("");
     } catch (error) {
       console.error("Error:", error);
     } finally {
       setIsLoading(false);
     }
   };
-
 
   // TODO: Modify the color schemes, fonts, and UI as needed for a good user experience
   // Refer to the Tailwind CSS docs here: https://tailwindcss.com/docs/customizing-colors, and here: https://tailwindcss.com/docs/hover-focus-and-other-states
@@ -52,7 +60,7 @@ export default function Home() {
       {/* Header */}
       <div className="w-full bg-gray-800 border-b border-gray-700 p-4">
         <div className="max-w-3xl mx-auto">
-          <h1 className="text-xl font-semibold text-white">Chat</h1>
+          <h1 className="text-xl font-semibold text-white">Talk to Yoda!</h1>
         </div>
       </div>
 
