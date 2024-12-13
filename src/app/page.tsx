@@ -3,14 +3,14 @@
 import { useState } from "react";
 
 export type Message = {
-  role: "user" | "ai";
+  role: "user" | "assistant";
   content: string;
 };
 
 export default function Home() {
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState<Message[]>([
-    { role: "ai", content: "Hello! How can I help you today?" },
+    { role: "assistant", content: "Hello! How can I help you today?" },
   ]);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -37,10 +37,9 @@ export default function Home() {
       if (!response.ok) throw new Error("Failed to fetch response");
 
       // TODO: Handle the response from the chat API to display the AI response in the UI
-      //const chatResponse: Message = await response.json();
       const data = await response.json();
       const aiResponse: Message = {
-        role: "ai",
+        role: "assistant",
         content: data.response,
       };
       // Add AI response to the conversation
@@ -60,7 +59,7 @@ export default function Home() {
       {/* Header */}
       <div className="w-full bg-gray-800 border-b border-gray-700 p-4">
         <div className="max-w-3xl mx-auto">
-          <h1 className="text-xl font-semibold text-white">Talk to Yoda!</h1>
+          <h1 className="text-xl font-semibold text-white">Ask LumViz</h1>
         </div>
       </div>
 
@@ -71,14 +70,14 @@ export default function Home() {
             <div
               key={index}
               className={`flex gap-4 mb-4 ${
-                msg.role === "ai"
+                msg.role === "assistant"
                   ? "justify-start"
                   : "justify-end flex-row-reverse"
               }`}
             >
               <div
                 className={`px-4 py-2 rounded-2xl max-w-[80%] ${
-                  msg.role === "ai"
+                  msg.role === "assistant"
                     ? "bg-gray-800 border border-gray-700 text-gray-100"
                     : "bg-cyan-600 text-white ml-auto"
                 }`}

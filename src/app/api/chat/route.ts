@@ -6,6 +6,7 @@
 
 import { OpenAI } from "openai";
 import { NextRequest, NextResponse } from "next/server";
+import { scrapeURL } from "@/app/utils/scraper";
 
 const client = new OpenAI({
   baseURL: "https://api.groq.com/openai/v1",
@@ -15,7 +16,22 @@ const client = new OpenAI({
 export async function POST(req: Request) {
   try {
     const { message } = await req.json();
-    // console.log(messages);
+
+    const urlRegex = /(https?:\/\/[^\s]+)/;
+    const url = message.match(urlRegex);
+    let urlContent: string;
+    // console.log(typeof url[0]);
+    if (url) {
+      urlContent = await scrapeURL(url[0]);
+    } else {
+      urlContent = "";
+      console.log("No url found in the message");
+    }
+    // console.log(url[0]);
+    // console.log(hasURL(message));
+    // console.log(typeof message);
+    console.log(urlContent);
+    console.log("length of html content: ", urlContent.length);
     const completion = await client.chat.completions.create({
       messages: [
         {
@@ -25,7 +41,7 @@ export async function POST(req: Request) {
         },
         {
           role: "user",
-          content: message,
+          content: `Using the following information, answer the question or perform: "${message}". \n\n${urlContent}`,
         },
       ],
       model: "llama-3.1-8b-instant",
