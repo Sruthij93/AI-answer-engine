@@ -1,4 +1,4 @@
-# AI Answer Engine
+# Ask LumViz: AI Answer Engine
 
 ## Getting Started
 
