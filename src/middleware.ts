@@ -18,9 +18,6 @@ const rateLimit = new Ratelimit({
   analytics: true,
 });
 
-//  quick way to do rate limiting, is through the User's IP address.
-// improve ratelimiting using session- iron session examples- app router. this is not the best way to do rate limiting. --SERVER ACTIONS. to protect apis
-
 export async function middleware(request: NextRequest) {
   try {
     const ip = request.headers.get("x-forwarded-for") ?? "127.0.0.1";
@@ -55,7 +52,3 @@ export const config = {
     "/((?!_next/static|_next/image|favicon.ico).*)",
   ],
 };
-
-// cache scraped content from the webpage.
-// set up another file to handle logging-
-// have a separate file for redis

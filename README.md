@@ -1,1 +1,44 @@
-**Federal Reserve Approves Interest Rate Cut: Pros and Cons** The Federal Reserve has announced its decision to approve an interest rate cut in December. Economists have mixed opinions on the matter. Some experts argue that the Fed should pause its rate-cutting policy, citing concerns about a speculative bubble and inflation. **Key Points** 1. The Fed's decision to cut interest rates comes despite some economists' reservations about the potential consequences. 2. The central bank is expected to debate the pace and extent of future rate cuts. 3. Some experts argue that the Fed's policy could create a speculative bubble and stoke inflation. 4. Others believe that the Fed should continue to normalize policy and address inflation concerns. **Expert Opinions** Joseph LaVorgna, chief economist at SMBC Nikko Securities, expressed skepticism about a Fed cut, citing concerns about inflation and a speculative bubble. Chris Rupkey, senior economist at FWDBONDS, agreed, arguing that the Fed does not need to cut rates right now. On the other hand, some economists, like Jason Furman, former White House economist under Barack Obama, believe that the Fed should continue to cut rates to support the labor market. **Upcoming Events** The Fed's decision to cut rates is subject to change based on upcoming economic data, including consumer and producer price reports. Sources: _ CNBC _ Bloomberg _ New York Times DealBook Summit _ Atlanta Fed \* Federal Reserve System
+# AI Answer Engine
+
+## Getting Started
+
+First, clone the repository and install the dependencies:
+
+```bash
+git clone https://github.com/team-headstart/ai-answer-engine.git
+```
+
+Navigate to the project directory:
+
+```bash
+cd ai-answer-engine
+```
+
+Then, install the dependencies:
+
+```bash
+npm install
+```
+
+Then, run the development server:
+
+```bash
+npm run dev
+```
+
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+
+## Tasks
+
+- Take a look at the TODOs throughout the repo, namely:
+
+  - `src/app/page.tsx`: Update the UI and handle the API response as needed
+  - `src/app/api/chat/route.ts`: Implement the chat API with Groq and web scraping with Cheerio and Puppeteer
+  - `src/middleware.ts`: Implement the code here to add rate limiting with Redis
+
+## Learn More
+
+To learn more about Next.js, take a look at the following resources:
+
+- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.

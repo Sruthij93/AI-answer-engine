@@ -29,7 +29,7 @@ export async function POST(req: Request) {
       console.log("No url found in the message");
     }
 
-    console.log("length of html content: ", urlContent.length);
+    // console.log("length of html content: ", urlContent.length);
 
     const userMessage = message.replace(url ? url[0] : "", "").trim();
     console.log("The usermessage is: ", userMessage);
@@ -40,6 +40,7 @@ export async function POST(req: Request) {
                     ${urlContent}
                     </content>,
                     DO NOT mention anything about the content or context provided to you.`;
+
     const llmMessages = [
       ...limitedMessages,
       {
