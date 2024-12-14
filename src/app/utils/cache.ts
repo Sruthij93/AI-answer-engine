@@ -26,18 +26,6 @@ const CACHE_TTL = 7 * (24 * 60 * 60);
 const MAX_CACHE_SIZE = 1024000; // 1 MB limit
 
 function validateScrapedContent(data: any): data is ScrapedContent {
-  //   console.log("validate scrape function:::::::::");
-  //   console.log("Data type:", typeof data);
-  //   //   console.log("Data: ", data);
-  //   console.log("url type:", typeof data.url);
-  //   console.log("title type:", typeof data.title);
-  //   console.log("headings type:", typeof data.headings);
-  //   console.log("h1 type:", typeof data.headings.h1);
-  //   console.log("h2 type:", typeof data.headings.h2);
-  //   console.log("content type", typeof data.content);
-  //   console.log("error type", typeof data.error);
-  //   console.log("error ", data.error);
-
   return (
     typeof data === "object" &&
     data != null &&

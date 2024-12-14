@@ -1,6 +1,10 @@
 "use client";
 
 import { useState } from "react";
+import React from "react";
+import { createRoot } from "react-dom/client";
+import Markdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 
 export type Message = {
   role: "user" | "assistant";
@@ -81,11 +85,11 @@ export default function Home() {
               <div
                 className={`px-4 py-2 rounded-2xl max-w-[80%] ${
                   msg.role === "assistant"
-                    ? "bg-gray-600 border border-gray-700 text-gray-100"
-                    : "bg-sky-700 text-slate-300 ml-auto"
+                    ? "bg-gray-600 border border-gray-700 text-gray-100 shadow-sm"
+                    : "bg-sky-700 text-slate-300 ml-auto shadow-sm"
                 }`}
               >
-                {msg.content}
+                <Markdown remarkPlugins={[remarkGfm]}>{msg.content}</Markdown>
               </div>
             </div>
           ))}
