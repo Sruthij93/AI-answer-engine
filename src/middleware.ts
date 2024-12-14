@@ -27,9 +27,10 @@ export async function middleware(request: NextRequest) {
 
     const { success, limit, reset, remaining } = await rateLimit.limit(ip);
 
+    // Add rate limit headers to the response
     const response = success
       ? NextResponse.next()
-      : NextResponse.json({ error: "Too Many Reqyests" }, { status: 429 });
+      : NextResponse.json({ error: "Too Many Requests" }, { status: 429 });
 
     // Add rate limit info to response headers
     response.headers.set("X-RateLimit-Limit", limit.toString());
@@ -39,8 +40,6 @@ export async function middleware(request: NextRequest) {
     return response;
 
     // const response = NextResponse.next();
-
-    return response;
   } catch (error) {
     console.error("Middleware error.");
     return NextResponse.next;

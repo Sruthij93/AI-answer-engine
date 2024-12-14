@@ -31,6 +31,7 @@ export default function Home() {
         },
         body: JSON.stringify({
           message,
+          messages,
         }),
       });
 
@@ -40,7 +41,7 @@ export default function Home() {
       const data = await response.json();
       const aiResponse: Message = {
         role: "assistant",
-        content: data.response,
+        content: data.message,
       };
       // Add AI response to the conversation
       setMessages(prev => [...prev, aiResponse]);

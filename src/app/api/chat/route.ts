@@ -4,53 +4,56 @@
 // Refer to the Cheerio docs here on how to parse HTML: https://cheerio.js.org/docs/basics/loading
 // Refer to Puppeteer docs here: https://pptr.dev/guides/what-is-puppeteer
 
-import { OpenAI } from "openai";
 import { NextRequest, NextResponse } from "next/server";
 import { scrapeURL } from "@/app/utils/scraper";
-
-const client = new OpenAI({
-  baseURL: "https://api.groq.com/openai/v1",
-  apiKey: process.env.GROQ_API_KEY,
-});
+import { groqLLMResponse } from "@/app/utils/groqLLM";
 
 export async function POST(req: Request) {
   try {
-    const { message } = await req.json();
+    const { message, messages } = await req.json();
 
     const urlRegex = /(https?:\/\/[^\s]+)/;
     const url = message.match(urlRegex);
     let urlContent: string;
     // console.log(typeof url[0]);
+
+    // limit the messages to last 10 messages
+    const limitedMessages = messages.slice(-10);
+    // console.log("prev chat convo", messages);
+
     if (url) {
-      urlContent = await scrapeURL(url[0]);
+      const urlScraper = await scrapeURL(url[0]);
+      urlContent = urlScraper.content;
     } else {
-      urlContent = "";
+      urlContent = " ";
       console.log("No url found in the message");
     }
     // console.log(url[0]);
     // console.log(hasURL(message));
     // console.log(typeof message);
-    console.log(urlContent);
+    // console.log(urlContent);
     console.log("length of html content: ", urlContent.length);
-    const completion = await client.chat.completions.create({
-      messages: [
-        {
-          role: "system",
-          content:
-            "You are an expert search engine. You will give answers to the questions asked by searching information from the web.",
-        },
-        {
-          role: "user",
-          content: `Using the following information, answer the question or perform: "${message}". \n\n${urlContent}`,
-        },
-      ],
-      model: "llama-3.1-8b-instant",
-    });
 
-    console.log("ai response: ", completion);
-    return NextResponse.json({
-      response: completion.choices[0].message.content,
-    });
+    const userMessage = message.replace(url ? url[0] : "", "").trim();
+    console.log("The usermessage is: ", userMessage);
+
+    const userPrompt = `Answer the question or perform: "${userMessage}". 
+                      Using the following content 
+                    <content>
+                    ${urlContent}
+                    </content>,
+                    DO NOT mention anything about the content or context provided to you.`;
+    const llmMessages = [
+      ...limitedMessages,
+      {
+        role: "user",
+        content: userPrompt,
+      },
+    ];
+
+    const response = await groqLLMResponse(llmMessages);
+
+    return NextResponse.json({ message: response });
   } catch (error) {
     console.error("Error: ", error);
     return NextResponse.json(
