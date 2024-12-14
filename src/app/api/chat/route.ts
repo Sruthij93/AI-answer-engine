@@ -28,10 +28,7 @@ export async function POST(req: Request) {
       urlContent = " ";
       console.log("No url found in the message");
     }
-    // console.log(url[0]);
-    // console.log(hasURL(message));
-    // console.log(typeof message);
-    // console.log(urlContent);
+
     console.log("length of html content: ", urlContent.length);
 
     const userMessage = message.replace(url ? url[0] : "", "").trim();

@@ -56,11 +56,13 @@ export default function Home() {
   // TODO: Modify the color schemes, fonts, and UI as needed for a good user experience
   // Refer to the Tailwind CSS docs here: https://tailwindcss.com/docs/customizing-colors, and here: https://tailwindcss.com/docs/hover-focus-and-other-states
   return (
-    <div className="flex flex-col h-screen bg-gray-900">
+    <div className="flex flex-col h-screen bg-slate-900">
       {/* Header */}
-      <div className="w-full bg-gray-800 border-b border-gray-700 p-4">
+      <div className="w-full bg-blue-950 border-b border-gray-700 p-4">
         <div className="max-w-3xl mx-auto">
-          <h1 className="text-xl font-semibold text-white">Ask LumViz</h1>
+          <div className="text-xl font-semibold text-indigo-300 text-3xl text-center">
+            🌟 Ask LumViz 🌟
+          </div>
         </div>
       </div>
 
@@ -79,8 +81,8 @@ export default function Home() {
               <div
                 className={`px-4 py-2 rounded-2xl max-w-[80%] ${
                   msg.role === "assistant"
-                    ? "bg-gray-800 border border-gray-700 text-gray-100"
-                    : "bg-cyan-600 text-white ml-auto"
+                    ? "bg-gray-600 border border-gray-700 text-gray-100"
+                    : "bg-sky-700 text-slate-300 ml-auto"
                 }`}
               >
                 {msg.content}
@@ -111,7 +113,7 @@ export default function Home() {
       </div>
 
       {/* Input Area */}
-      <div className="fixed bottom-0 w-full bg-gray-800 border-t border-gray-700 p-4">
+      <div className="fixed bottom-0 w-full bg-blue-950 border-t border-gray-700 p-4">
         <div className="max-w-3xl mx-auto">
           <div className="flex gap-3 items-center">
             <input
@@ -125,7 +127,7 @@ export default function Home() {
             <button
               onClick={handleSend}
               disabled={isLoading}
-              className="bg-cyan-600 text-white px-5 py-3 rounded-xl hover:bg-cyan-700 transition-all disabled:bg-cyan-800 disabled:opacity-50 disabled:cursor-not-allowed"
+              className="bg-blue-600 text-white px-5 py-3 rounded-xl hover:bg-blue-500 transition-all disabled:bg-cyan-800 disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {isLoading ? "Sending..." : "Send"}
             </button>
