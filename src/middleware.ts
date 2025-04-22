@@ -39,7 +39,7 @@ export async function middleware(request: NextRequest) {
     // const response = NextResponse.next();
   } catch (error) {
     console.error("Middleware error.");
-    return NextResponse.next;
+    return NextResponse.next();
   }
 }
 
